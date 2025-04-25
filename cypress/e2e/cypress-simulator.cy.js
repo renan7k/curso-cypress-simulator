@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
 describe("Cypress Simulator", () => {
-
   beforeEach(() => {
+    cy.login()
     //pulando o capthca adicionando esse parâmetro na url
     //Setando no localStorage o item cookieConsent, para evitar do banner ser exibido
     cy.visit("./src/index.html?skipCaptcha=true", {
@@ -10,7 +10,7 @@ describe("Cypress Simulator", () => {
         win.localStorage.setItem("cookieConsent", "accepted")
       }
     })
-    cy.contains("button", "Login").click()
+    //cy.contains("button", "Login").click()
   })
 
   it("successfully simulates a Cypress command", () => {
@@ -167,7 +167,7 @@ describe("Cypress Simulator", () => {
     cy.get("#outputArea").should("not.contain", "cy.log('Teste') // Logged message 'Teste'")
   })
 
-  it.only("doesn't show the cookie consent banner on the login page", () => {
+  it("doesn't show the cookie consent banner on the login page", () => {
     cy.clearAllLocalStorage()
     cy.reload()
 
@@ -179,8 +179,9 @@ describe("Cypress Simulator", () => {
 
 describe("Cypress Simulator - Cookies consent", () => {
   beforeEach(() => {
+    cy.login()
     cy.visit("./src/index.html?skipCaptcha=true")
-    cy.contains("button", "Login").click()
+    //cy.contains("button", "Login").click()
   })
 
   it("consents on the cookies usage", () => {
